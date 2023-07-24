@@ -1,10 +1,21 @@
+import { useFetch } from "../../hooks/useFetch"
 import "./Recips.css"
+import {useParams} from "react-router-dom"
 
-import React from 'react'
+
 
 const Recipe = () => {
+
+  const {id} = useParams()
+  const url = "http://localhost:3000/recipes/" + id
+  const {error, isLoading, data: recipe} = useFetch(url)
+
   return (
-    <div>Recipe</div>
+    <div className="recipe">
+      {error && <p className="error">{error}</p>}
+      {isLoading && <p className="loading">Loading...</p>}
+      {recipe && <h1>{recipe.title}</h1>}
+    </div>
   )
 }
 
