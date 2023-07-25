@@ -17,11 +17,11 @@ export const useFetch = (url, method="GET") => {
 
   useEffect(() => {
     const controller = new AbortController()
-                            //! HERE 1a
+                   
     const fetchData = async (fetchOptions) => {
       setisLoading(true)
       
-      try {                         //! HERE 1b
+      try {                        
         const res = await fetch(url, { ...fetchOptions, signal: controller.signal })
         if(!res.ok) {
           throw new Error(res.statusText)
@@ -40,7 +40,7 @@ export const useFetch = (url, method="GET") => {
         }
       }
     }
-//! HERE 1
+
     if(method==="GET"){
       fetchData()
     }
@@ -52,7 +52,7 @@ export const useFetch = (url, method="GET") => {
     return () => {
       controller.abort()
     }
-           //! HERE 1c 
+          
   }, [url, options, method]) // We need to pass the options and the method 
             // into the useEffect as dependencies, because now we're using
             // them inside this use effect function.

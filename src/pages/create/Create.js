@@ -12,7 +12,6 @@ const Create = () => {
   const [ingredients, setIngredients] = useState([])
   const ingredientInput = useRef(null)
   const {postData, data, error} = useFetch("http://localhost:3000/recipes", "POST")
-  //! HERE 1b
   const history = useHistory()
 
   const handleSubmit = (e) => { 
@@ -31,7 +30,7 @@ const Create = () => {
     ingredientInput.current.focus() 
   }
 
-  //! HERE 1a
+
   // Redirect the user when we get a data response
   useEffect(()=>{
     if(data){
