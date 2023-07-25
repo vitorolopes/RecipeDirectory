@@ -9,7 +9,6 @@ const Navbar = () => {
         <Link to="/" className="brand">
           <h1>Cooking Ninja</h1>
         </Link>
-        {/* //! HERE 1 */}
         <SearchBar/>
 
         <Link to="/create">
