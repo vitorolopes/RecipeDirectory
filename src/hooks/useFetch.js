@@ -1,39 +1,28 @@
 import { useState, useEffect } from "react"
-                            //! HERE 1 if we do not pass an argument when we 
-                            //! call useFetch it is going to default to get
+                       
 export const useFetch = (url, method="GET") => {
   const [data, setData] = useState(null)
   const [isLoading, setisLoading] = useState(false)
   const [error, setError] = useState(null)
- //! HERE 2a
   const [options, setOptions] = useState(null)
- //! HERE 2
   const postData = (postData) => { // postData is the new recipe
     setOptions({
       method: "POST",
       headers: {
-        "Content-type": "application/json" // This just outlines the 
-        // type of data we're sending in the post request, which is going to be JASON data.
+        "Content-type": "application/json" 
       },
       body: JSON.stringify(postData)
     })
   }
 
-// To make a post request with the fetch API, 
-// we put in some extra information into its second argument, which is an object.
-// Now, so far, we just have this signal option, but it's inside this object
-// we'd also have a headers property, the method, which is either get or post 
-// and the body, which is the data we want to send with the request.
-
-
   useEffect(() => {
     const controller = new AbortController()
-
-    const fetchData = async () => {
+                            //! HERE 1a
+    const fetchData = async (fetchOptions) => {
       setisLoading(true)
       
-      try {
-        const res = await fetch(url, { signal: controller.signal })
+      try {                         //! HERE 1b
+        const res = await fetch(url, { ...fetchOptions, signal: controller.signal })
         if(!res.ok) {
           throw new Error(res.statusText)
         }
@@ -51,18 +40,22 @@ export const useFetch = (url, method="GET") => {
         }
       }
     }
-
-    fetchData()
+//! HERE 1
+    if(method==="GET"){
+      fetchData()
+    }
+    if(method==="POST" && options){
+      fetchData(options)
+    }
+    
 
     return () => {
       controller.abort()
     }
-
-  }, [url])
-                                 //! HERE 2a
+           //! HERE 1c 
+  }, [url, options, method]) // We need to pass the options and the method 
+            // into the useEffect as dependencies, because now we're using
+            // them inside this use effect function.
+                              
   return { data, isLoading, error, postData }
-}                                // This is the function that we're going to
-// invoke from our create component later when a user submits the form.
-// But at the minute, all it's really doing is taking the data that we want to post 
-// or save, which will be a recipe, and it's creating a fetch options object to store
-// it in some state (options). We are not actually making the request yet.
+}                                

@@ -1,5 +1,6 @@
 import { useState, useRef } from "react"
 import "./Create.css"
+import { useFetch } from "../../hooks/useFetch"
 
 
 const Create = () => {
@@ -10,11 +11,15 @@ const Create = () => {
   const [newIngredient, setNewIngredient] = useState("")
   const [ingredients, setIngredients] = useState([])
   const ingredientInput = useRef(null)
+  //! HERE 1
+  const {postData, data, error} = useFetch("http://localhost:3000/recipes", "POST")
+   // Now, the end point for a post request for a specific 
+   // resource is the same as the get request.
 
   const handleSubmit = (e) => { 
-    e.preventDefault(
-      console.log(title, method, cookingTime, ingredients)
-    )
+    e.preventDefault()
+    //! HERE 1b
+    postData({title, ingredients, method, cookingTime: cookingTime + "minutes"})
    }
 
    const handleAdd = (e) => { 
@@ -25,8 +30,7 @@ const Create = () => {
       setIngredients(prevIngredients => [...prevIngredients, ing])
     }
     setNewIngredient("")
-    ingredientInput.current.focus() // focus() focuses an input field so that the user, 
-                                    // can just start typing right away instead of clicking into the input to type.
+    ingredientInput.current.focus() 
   }
 
   return (
