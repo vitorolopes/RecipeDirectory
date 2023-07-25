@@ -1,7 +1,7 @@
-import { useState, useRef } from "react"
-import "./Create.css"
+import { useState, useRef, useEffect } from "react"
+import {useHistory} from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
-
+import "./Create.css"
 
 const Create = () => {
 
@@ -11,15 +11,13 @@ const Create = () => {
   const [newIngredient, setNewIngredient] = useState("")
   const [ingredients, setIngredients] = useState([])
   const ingredientInput = useRef(null)
-  //! HERE 1
   const {postData, data, error} = useFetch("http://localhost:3000/recipes", "POST")
-   // Now, the end point for a post request for a specific 
-   // resource is the same as the get request.
+  //! HERE 1b
+  const history = useHistory()
 
   const handleSubmit = (e) => { 
     e.preventDefault()
-    //! HERE 1b
-    postData({title, ingredients, method, cookingTime: cookingTime + "minutes"})
+    postData({title, ingredients, method, cookingTime: cookingTime + " minutes"})
    }
 
    const handleAdd = (e) => { 
@@ -32,6 +30,15 @@ const Create = () => {
     setNewIngredient("")
     ingredientInput.current.focus() 
   }
+
+  //! HERE 1a
+  // Redirect the user when we get a data response
+  useEffect(()=>{
+    if(data){
+      history.push("/")
+    }
+  },[data])
+
 
   return (
     <div className="create">
