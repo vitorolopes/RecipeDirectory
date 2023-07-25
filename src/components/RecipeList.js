@@ -4,6 +4,12 @@ import "./RecipeList.css"
 import React from 'react'
 
 const RecipeList = ({recipes}) => {
+//! HERE 1
+  if(recipes.length === 0){
+    return <div className="error">No recipes to load ...</div>
+  }
+
+
   return (
     <div className="recipe-list"> 
                                    {/* // We just output the <RecipeList> in <Home>
