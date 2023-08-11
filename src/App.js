@@ -7,6 +7,7 @@ import Recipe from "./pages/recipe/Recipe"
 import Navbar from "./components/Navbar"
 
 import './App.css'
+import { ThemeSelector } from "./components/ThemeSelector"
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <BrowserRouter>
 
         <Navbar/>
+{/* //! HERE 1 */}
+        <ThemeSelector/>
 
         <Switch>
 

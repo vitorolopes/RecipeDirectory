@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 
 export const ThemeContext = createContext()
-//! HERE 2
+
 const themeReducer = (state, action) => { 
     switch(action.type) {
       case "CHANGE_COLOR" :
@@ -13,12 +13,10 @@ const themeReducer = (state, action) => {
 
 
 export function ThemeProvider({ children }) {
-//! HERE 1
   const [state, dispatch] = useReducer(themeReducer, {
-    color: "blue"
+    color: "#58249c"
   })
 
-//! HERE 3
 const changeColor = (color) => { 
   dispatch({type: "CHANGE_COLOR", payload: color})
  }
@@ -26,8 +24,6 @@ const changeColor = (color) => {
   return (
     <ThemeContext.Provider 
     value={{ 
-      //! HERE 4
-      // color: 'blue' 
       ...state,
       changeColor
        
