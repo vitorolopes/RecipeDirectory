@@ -5,10 +5,9 @@ import modeIcon from '../assets/mode-icon.svg';
 
 const themeColors = ['#58249c', '#249c6b', '#b70233']
 
-export const ThemeSelector = () => { 
-                       //! HERE 2a
+export const ThemeSelector = () => {
   const { changeColor, changeMode, mode } = useTheme()
-//! HERE 2
+
   const toggleMode = () => { 
     changeMode(mode === "dark" ? "light" : "dark")
   }
@@ -16,13 +15,10 @@ export const ThemeSelector = () => {
 
   return(
     <div className='theme-selector'>
-
-      {/* //! HERE 1 */}
       <div className="mode-toggle">
         <img src={modeIcon} alt="dark-light"
             onClick={toggleMode}
             style={{ filter: mode === "dark" ? "invert(100%)" :  "invert(20%)"}}
-
         />
       </div>
 
