@@ -10,8 +10,6 @@ const Navbar = () => {
 
   return (
     <div className="navbar" style={{ background: color}}>
-    {/* //! HERE 1  */}
-      {/* <nav onClick={() => changeColor("pink")}> */}
       <nav>
       
         <Link to="/" className="brand">

@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
 
         <Navbar/>
-{/* //! HERE 1 */}
+
         <ThemeSelector/>
 
         <Switch>
