@@ -6,16 +6,11 @@ import { projectFirestore } from "../../firebase/config"
 
 const Recipe = () => {
   const {id} = useParams()
-//! HERE 1
-  // const url = "http://localhost:3000/recipes/" + id
-  // const {error, isLoading, data: recipe} = useFetch(url)
-
   const {mode} = useTheme()
-//! HERE 2
   const [recipe, setRecipe] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-//! HERE 3
+
   useEffect(() => {
     setIsLoading(true)
     projectFirestore.collection("recipes").doc(id).get().then((doc)=>{
