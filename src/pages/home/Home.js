@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
-
 import RecipeList from "../../components/RecipeList"
-
 import { projectFirestore } from "../../firebase/config"
-
 import "./Home.css"
 
 
@@ -15,7 +12,8 @@ const Home = () => {
 
   useEffect(()=>{
     setIsLoading(true)
-    projectFirestore.collection("recipes").get().then((snapshot)=>{ 
+    //! HERE 3a
+    const unsub = projectFirestore.collection("recipes").onSnapshot((snapshot)=>{ 
         // console.log(snapshot);
         if(snapshot.empty){
           setError("No recipes to load")
@@ -29,10 +27,14 @@ const Home = () => {
           setData(results)
           setIsLoading(false)
         }
-    }).catch(err=>{
+
+    }, (err)=> {
       setError(err.message)
       setIsLoading(false)
     })
+    //! HERE 3b
+    return () => unsub()
+
   }, [])
 
   return (

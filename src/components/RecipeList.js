@@ -13,7 +13,7 @@ const RecipeList = ({recipes}) => {
     return <div className="error">No recipes to load ...</div>
   }
 
- //! HERE 2
+
   const handleClick = (id) => { 
     projectFirestore.collection("recipes").doc(id).delete()
   }
@@ -26,7 +26,6 @@ const RecipeList = ({recipes}) => {
             <p>{recipe.cookingTime} to make</p>
             <div>{recipe.method.substring(0,100)}...</div>
             <Link to={`/recipes/${recipe.id}`}>Cook this</Link>
-{/* //! HERE 1 */}
             <img src={deleteIcon} alt="delete-icon" className="delete"
                  onClick={()=>handleClick(recipe.id)}
             />
