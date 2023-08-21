@@ -24,6 +24,12 @@ const Recipe = () => {
       }
     })
   }, [id])
+ //! HERE 2
+  const handleClick = () => { 
+    projectFirestore.collection("recipes").doc(id).update({
+        title: "Something completly different"
+    })
+   }
   
   return (
     <div className={`recipe ${mode}`}>
@@ -37,6 +43,8 @@ const Recipe = () => {
           {recipe.ingredients.map( ing => <li key={ing}>{ing}</li>)}
         </ul>
         <p className="method">{recipe.method}</p>
+{/* //! HERE 1      */}
+        <button onClick={handleClick}>Update me</button>
         </>
       )}
     </div>

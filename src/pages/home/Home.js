@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(()=>{
     setIsLoading(true)
-    //! HERE 3a
+ 
     const unsub = projectFirestore.collection("recipes").onSnapshot((snapshot)=>{ 
         // console.log(snapshot);
         if(snapshot.empty){
@@ -32,7 +32,7 @@ const Home = () => {
       setError(err.message)
       setIsLoading(false)
     })
-    //! HERE 3b
+
     return () => unsub()
 
   }, [])
