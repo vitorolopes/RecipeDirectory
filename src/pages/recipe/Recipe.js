@@ -13,7 +13,9 @@ const Recipe = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    projectFirestore.collection("recipes").doc(id).get().then((doc)=>{
+//! HERE 1
+    // projectFirestore.collection("recipes").doc(id).get().then((doc)=>{
+    const unsub = projectFirestore.collection("recipes").doc(id).onSnapshot((doc)=>{
       console.log(doc);
       if(doc.exists){
         setIsLoading(false)
@@ -23,8 +25,11 @@ const Recipe = () => {
         setError("Could not find that recipe")
       }
     })
+//! HERE 2
+    return () => unsub()
+
   }, [id])
- //! HERE 2
+
   const handleClick = () => { 
     projectFirestore.collection("recipes").doc(id).update({
         title: "Something completly different"
@@ -43,7 +48,6 @@ const Recipe = () => {
           {recipe.ingredients.map( ing => <li key={ing}>{ing}</li>)}
         </ul>
         <p className="method">{recipe.method}</p>
-{/* //! HERE 1      */}
         <button onClick={handleClick}>Update me</button>
         </>
       )}
